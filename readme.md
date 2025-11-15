@@ -23,7 +23,7 @@ This project is based on [jdevillard/Elsa-Authentication-Samples, src/01-BasicAu
 
 - **Upgraded Elsa packages to version 3.5.1**
 - **Added Elsa.Agents extensions**  
-  *(Note: This feature is still incomplete / experimental)*
+  *(Note: This feature is still incomplete / experimental i think)*
 
 Please refer to the original repository for authentication sample details.  
 Changes in this fork focus on updating package dependencies and introducing new Elsa agent extensions for further development and experimentation.

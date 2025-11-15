@@ -1,0 +1,25 @@
+## Ignore build output
+**/bin/
+**/obj/
+
+## Visual Studio & common IDE files
+.vs/
+.idea/
+*.user
+*.suo
+
+## NuGet and build artifacts
+*.nupkg
+artifacts/
+
+## Rider
+*.sln.iml
+
+## SQLite databases
+# Ignore common SQLite database files and temporary files
+*.db
+*.sqlite
+*.sqlite3
+*-journal
+*-wal
+*-shm

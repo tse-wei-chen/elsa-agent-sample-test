@@ -16,6 +16,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 using Elsa.Studio.Models;
 using Elsa.Studio.Login.Extensions;
+using Elsa.Studio.Webhooks.Extensions;
 
 // Build the host.
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -26,21 +27,24 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.RootComponents.RegisterCustomElsaStudioElements();
 
 // Register shell services and modules.
-builder.Services.AddCore();
-builder.Services.AddShell();
-builder.Services.AddRemoteBackend(new BackendApiConfig
-{
-    ConfigureBackendOptions = options => builder.Configuration.GetSection("Backend").Bind(options),
-    ConfigureHttpClientBuilder = options => options.AuthenticationHandler = typeof(AuthenticatingApiHttpMessageHandler)
-});
-builder.Services.AddLoginModule().UseElsaIdentity();
-builder.Services.AddDashboardModule();
-builder.Services.AddWorkflowsModule();
-builder.Services.AddAgentsModule(new BackendApiConfig
-{
-    ConfigureBackendOptions = options => builder.Configuration.GetSection("Backend").Bind(options),
-    ConfigureHttpClientBuilder = options => options.AuthenticationHandler = typeof(AuthenticatingApiHttpMessageHandler)
-});
+builder.Services
+    .AddCore()
+    .AddShell()
+    .AddRemoteBackend(new BackendApiConfig
+    {
+        ConfigureBackendOptions = options => builder.Configuration.GetSection("Backend").Bind(options),
+        ConfigureHttpClientBuilder = options => options.AuthenticationHandler = typeof(AuthenticatingApiHttpMessageHandler)
+    })
+    .AddLoginModule()
+    .UseElsaIdentity()
+    .AddDashboardModule()
+    .AddWorkflowsModule()
+    .AddWebhooksModule()
+    .AddAgentsModule(new BackendApiConfig
+    {
+        ConfigureBackendOptions = options => builder.Configuration.GetSection("Backend").Bind(options),
+        ConfigureHttpClientBuilder = options => options.AuthenticationHandler = typeof(AuthenticatingApiHttpMessageHandler)
+    });
 // Build the application.
 var app = builder.Build();
 

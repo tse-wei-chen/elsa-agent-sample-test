@@ -9,11 +9,17 @@
   <ItemGroup>
     <PackageReference Include="Elsa.Api.Client" Version="3.5.1" />
     <PackageReference Include="Elsa.Studio" Version="3.5.1" />
-    <PackageReference Include="Elsa.Studio.Agents" Version="3.5.1" />
     <PackageReference Include="Elsa.Studio.Core.BlazorWasm" Version="3.5.1" />
     <PackageReference Include="Elsa.Studio.Login.BlazorWasm" Version="3.5.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.8" PrivateAssets="all" />
   </ItemGroup>
 
+  <ItemGroup Label="Elsa Webhooks Modules">
+    <PackageReference Include="Elsa.Studio.Webhooks" Version="3.5.1" />
+  </ItemGroup>
+
+  <ItemGroup Label="Elsa Agents Modules">
+    <PackageReference Include="Elsa.Studio.Agents" Version="3.5.1" />
+  </ItemGroup>
 </Project>

@@ -1,9 +1,10 @@
+using Elsa.Agents;
+using Elsa.Api.Client.Extensions;
 using Elsa.EntityFrameworkCore.Extensions;
 using Elsa.EntityFrameworkCore.Modules.Management;
 using Elsa.EntityFrameworkCore.Modules.Runtime;
 using Elsa.Extensions;
-using Elsa.Studio.Login.Extensions;
-using Microsoft.AspNetCore.Identity;
+using Elsa.Tenants.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,8 +27,9 @@ services
             identity.UseAdminUserProvider();
         })
         .UseDefaultAuthentication()
-        .UseWorkflowManagement(management => management.UseEntityFrameworkCore(ef => ef.UseSqlite()))
-        .UseWorkflowRuntime(runtime => runtime.UseEntityFrameworkCore(ef => ef.UseSqlite()))
+        .UseTenants()
+        .UseWorkflowManagement(management => management.UseEntityFrameworkCore(ef => ef.UseSqlite("Data Source=elsa.sqlite.db")))
+        .UseWorkflowRuntime(runtime => runtime.UseEntityFrameworkCore(ef => ef.UseSqlite("Data Source=elsa.sqlite.db")))
         .UseScheduling()
         .UseJavaScript()
         .UseLiquid()
@@ -36,7 +38,13 @@ services
         .UseRealTimeWorkflows()
         .AddActivitiesFrom<Program>()
         .AddWorkflowsFrom<Program>()
+        //AGENT MODULE CONFIGURATION
         .UseAgents()
+        .UseAgentActivities()
+        .UseAgentsApi()
+        .UseAgentPersistence(persistence => persistence.UseEntityFrameworkCore(ef => ef.UseSqlite("Data Source=elsa-agents.sqlite.db")))
+        //WEBHOOKS MODULE CONFIGURATION
+        .UseWebhooks(webhooks => webhooks.ConfigureSinks += options => builder.Configuration.GetSection(key: "Webhooks").Bind(options))
     );
 
 services.AddCors(cors => cors.AddDefaultPolicy(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().WithExposedHeaders("*")));
@@ -59,13 +67,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseWorkflowsApi();
 app.UseWorkflowsSignalRHubs();
-// Temporary fallback for missing AI API endpoints used by the Studio client.
-// Returns an empty list response for API keys so the Blazor client receives JSON
-// instead of the SPA HTML page when the AI module is not installed.
-var aiGroup = app.MapGroup("/elsa/api/ai");
-aiGroup.MapMethods("/{**endpoint}", ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"], (string endpoint) =>
-    Results.Json(new { path = endpoint, items = Array.Empty<object>(), total = 0 })
-);
 
 app.MapFallbackToPage("/_Host");
 app.Run();

@@ -1,4 +1,4 @@
-# Run the server
+# Run the server(dotnet 8)
 
 If you use VS Code, press `F5` to start the server.
 
@@ -12,7 +12,7 @@ After the server starts, open the studio in your browser:
 
 - `https://localhost:5001` (HTTPS)
 
-That's all — kept simple and minimal.
+That's all — kept simple.
 
 
 ## Project Update Notes
@@ -21,9 +21,9 @@ This project is based on [jdevillard/Elsa-Authentication-Samples, src/01-BasicAu
 
 ### Modifications Made
 
-- **Upgraded Elsa packages to version 3.5.1**
-- **Added Elsa.Agents extensions**  
-  *(Note: This feature is still incomplete / experimental i think)*
+- [x] Upgraded Elsa packages to version 3.5.1
+- [x] Added Elsa.Agents extensions
+- [ ] WebHook extensions
 
 Please refer to the original repository for authentication sample details.  
 Changes in this fork focus on updating package dependencies and introducing new Elsa agent extensions for further development and experimentation.

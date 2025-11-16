@@ -4,8 +4,15 @@ using Elsa.EntityFrameworkCore.Extensions;
 using Elsa.EntityFrameworkCore.Modules.Management;
 using Elsa.EntityFrameworkCore.Modules.Runtime;
 using Elsa.Extensions;
+using Elsa.Sql.Client;
+using Elsa.Sql.Extensions;
+using Elsa.Sql.PostgreSql;
+using Elsa.Sql.Sqlite;
+using Elsa.Sql.SqlServer;
+using Elsa.Studio.Webhooks.Extensions;
 using Elsa.Tenants.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using WebhooksCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.UseStaticWebAssets();
@@ -38,13 +45,32 @@ services
         .UseRealTimeWorkflows()
         .AddActivitiesFrom<Program>()
         .AddWorkflowsFrom<Program>()
-        //AGENT MODULE CONFIGURATION
+        // Agent module configuration
         .UseAgents()
         .UseAgentActivities()
         .UseAgentsApi()
         .UseAgentPersistence(persistence => persistence.UseEntityFrameworkCore(ef => ef.UseSqlite("Data Source=elsa-agents.sqlite.db")))
-        //WEBHOOKS MODULE CONFIGURATION
-        .UseWebhooks(webhooks => webhooks.ConfigureSinks += options => builder.Configuration.GetSection(key: "Webhooks").Bind(options))
+        // Webhooks module configuration
+        .UseWebhooks(webhooks =>
+        {
+            webhooks.ConfigureSinks += options =>
+            builder.Configuration.GetSection("Webhooks")
+            .Bind(options);
+        })
+        // Telnyx module configuration
+        .UseTelnyx()
+        .UseWorkflowContexts()
+        .UseFileStorage()
+        .UseSql(options =>
+            {
+                options.Clients = client =>
+                {
+                    client.Register<ISqlClient>("MySql");
+                    client.Register<PostgreSqlClient>("PostgreSql");
+                    client.Register<SqliteClient>("Sqlite");
+                    client.Register<SqlServerClient>("Sql Server");
+                };
+            })
     );
 
 services.AddCors(cors => cors.AddDefaultPolicy(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().WithExposedHeaders("*")));

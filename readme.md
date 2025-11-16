@@ -19,11 +19,15 @@ That's all — kept simple.
 
 This project is based on [jdevillard/Elsa-Authentication-Samples, src/01-BasicAuth](https://github.com/jdevillard/Elsa-Authentication-Samples/tree/main/src/01-BasicAuth).
 
-### Modifications Made
+### Modifications Made (Target: Full Feature)
 
 - [x] Upgraded Elsa packages to version 3.5.1
 - [x] Added Elsa.Agents extensions
 - [ ] WebHook extensions
+- [x] Telnyx extensions
+- [x] Workflow Contexts extensions
+- [x] Elsa Blob Storage extensions
+- [x] SQL extensions
 
 Please refer to the original repository for authentication sample details.  
 Changes in this fork focus on updating package dependencies and introducing new Elsa agent extensions for further development and experimentation.

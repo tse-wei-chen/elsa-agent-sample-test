@@ -17,6 +17,7 @@ using Microsoft.JSInterop;
 using Elsa.Studio.Models;
 using Elsa.Studio.Login.Extensions;
 using Elsa.Studio.Webhooks.Extensions;
+using Elsa.Studio.WorkflowContexts.Extensions;
 
 // Build the host.
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -44,7 +45,8 @@ builder.Services
     {
         ConfigureBackendOptions = options => builder.Configuration.GetSection("Backend").Bind(options),
         ConfigureHttpClientBuilder = options => options.AuthenticationHandler = typeof(AuthenticatingApiHttpMessageHandler)
-    });
+    })
+    .AddWorkflowContextsModule();
 // Build the application.
 var app = builder.Build();
 

@@ -22,4 +22,8 @@
   <ItemGroup Label="Elsa Agents Modules">
     <PackageReference Include="Elsa.Studio.Agents" Version="3.5.1" />
   </ItemGroup>
+
+  <ItemGroup Label="Elsa Workflow Contexts Module">
+<PackageReference Include="Elsa.Studio.WorkflowContexts" Version="3.5.1" />
+  </ItemGroup>
 </Project>

@@ -1,4 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ElsaStudio\ElsaStudio.csproj" />
@@ -30,10 +35,25 @@
     <PackageReference Include="Elsa.Agents.Persistence.EFCore" Version="3.5.1" />
     <PackageReference Include="Elsa.Agents.Persistence.EFCore.Sqlite" Version="3.5.1" />
   </ItemGroup>
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
 
+  <ItemGroup Label="Elsa Telnyx Module">
+    <PackageReference Include="Elsa.Telnyx" Version="3.5.1" />
+  </ItemGroup>
+
+  <ItemGroup Label="Elsa Workflow Contexts Module">
+    <PackageReference Include="Elsa.WorkflowContexts" Version="3.5.1" />
+  </ItemGroup>
+
+  <ItemGroup Label="Elsa Blob Storage Modules">
+    <PackageReference Include="Elsa.AzureStorage" Version="3.5.1" />
+    <PackageReference Include="Elsa.WorkflowProviders.BlobStorage" Version="3.5.1" />
+    <PackageReference Include="Elsa.FileStorage" Version="3.5.1" />
+  </ItemGroup>
+
+  <ItemGroup Label="Elsa SQL Modules">
+    <PackageReference Include="Elsa.Sql" Version="3.5.1" />
+    <PackageReference Include="Elsa.Sql.PostgreSql" Version="3.5.1" />
+    <PackageReference Include="Elsa.Sql.Sqlite" Version="3.5.1" />
+    <PackageReference Include="Elsa.Sql.SqlServer" Version="3.5.1" />
+  </ItemGroup>
 </Project>

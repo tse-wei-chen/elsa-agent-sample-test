@@ -22,10 +22,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.8" />
   </ItemGroup>
 
-  <ItemGroup Label="Elsa Webhooks Modules">
-    <PackageReference Include="Elsa.Webhooks" Version="3.5.1" />
-  </ItemGroup>
-
   <ItemGroup Label="Elsa Agents Modules">
     <PackageReference Include="Elsa.Agents.Api" Version="3.5.1" />
     <PackageReference Include="Elsa.Agents.Activities" Version="3.5.1" />
@@ -55,5 +51,9 @@
     <PackageReference Include="Elsa.Sql.PostgreSql" Version="3.5.1" />
     <PackageReference Include="Elsa.Sql.Sqlite" Version="3.5.1" />
     <PackageReference Include="Elsa.Sql.SqlServer" Version="3.5.1" />
+  </ItemGroup>
+
+  <ItemGroup Label="Http Modules">
+    <PackageReference Include="Elsa.Http" Version="3.5.1" />
   </ItemGroup>
 </Project>

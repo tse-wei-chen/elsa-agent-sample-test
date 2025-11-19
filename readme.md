@@ -28,6 +28,7 @@ This project is based on [jdevillard/Elsa-Authentication-Samples, src/01-BasicAu
 - ✅ Workflow Contexts extensions
 - ✅ Elsa Blob Storage extensions
 - ✅ SQL extensions
+- ✅ Http extensions
 
 Please refer to the original repository for authentication sample details.  
 Changes in this fork focus on updating package dependencies and introducing new Elsa agent extensions for further development and experimentation.

@@ -16,7 +16,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 using Elsa.Studio.Models;
 using Elsa.Studio.Login.Extensions;
-using Elsa.Studio.Webhooks.Extensions;
 using Elsa.Studio.WorkflowContexts.Extensions;
 
 // Build the host.
@@ -28,25 +27,23 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.RootComponents.RegisterCustomElsaStudioElements();
 
 // Register shell services and modules.
-builder.Services
-    .AddCore()
-    .AddShell()
-    .AddRemoteBackend(new BackendApiConfig
-    {
-        ConfigureBackendOptions = options => builder.Configuration.GetSection("Backend").Bind(options),
-        ConfigureHttpClientBuilder = options => options.AuthenticationHandler = typeof(AuthenticatingApiHttpMessageHandler)
-    })
-    .AddLoginModule()
-    .UseElsaIdentity()
-    .AddDashboardModule()
-    .AddWorkflowsModule()
-    .AddWebhooksModule()
-    .AddAgentsModule(new BackendApiConfig
-    {
-        ConfigureBackendOptions = options => builder.Configuration.GetSection("Backend").Bind(options),
-        ConfigureHttpClientBuilder = options => options.AuthenticationHandler = typeof(AuthenticatingApiHttpMessageHandler)
-    })
-    .AddWorkflowContextsModule();
+builder.Services.AddCore();
+builder.Services.AddShell();
+builder.Services.AddRemoteBackend(new BackendApiConfig
+{
+    ConfigureBackendOptions = options => builder.Configuration.GetSection("Backend").Bind(options),
+    ConfigureHttpClientBuilder = options => options.AuthenticationHandler = typeof(AuthenticatingApiHttpMessageHandler)
+});
+builder.Services.AddLoginModule();
+builder.Services.UseElsaIdentity();
+builder.Services.AddDashboardModule();
+builder.Services.AddWorkflowsModule();
+builder.Services.AddAgentsModule(new BackendApiConfig
+{
+    ConfigureBackendOptions = options => builder.Configuration.GetSection("Backend").Bind(options),
+    ConfigureHttpClientBuilder = options => options.AuthenticationHandler = typeof(AuthenticatingApiHttpMessageHandler)
+});
+builder.Services.AddWorkflowContextsModule();
 // Build the application.
 var app = builder.Build();
 

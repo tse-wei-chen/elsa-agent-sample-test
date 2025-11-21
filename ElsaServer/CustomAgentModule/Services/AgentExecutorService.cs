@@ -91,6 +91,13 @@ public class AgentExecutorService
                 : new List<ToolDefinition>();
             
             // Execute agent with potential tool calls (max 5 iterations)
+            // NOTE: Advanced tool calling requires parsing structured output from the AI model
+            // (e.g., function calling format from OpenAI). This simplified version demonstrates
+            // the conversation flow. For production, implement:
+            // 1. Parse tool calls from AI response
+            // 2. Execute requested tools via IToolExecutor
+            // 3. Add tool results to conversation
+            // 4. Continue iteration until final answer or max iterations
             const int maxIterations = 5;
             for (int i = 0; i < maxIterations; i++)
             {
@@ -110,8 +117,8 @@ public class AgentExecutorService
                     Content = assistantResponse
                 });
                 
-                // Check if the response contains tool calls (simplified - in real implementation would parse structured output)
-                // For this example, we'll just return the response
+                // For this foundational implementation, return the response directly
+                // Production use would check for tool calls and iterate as needed
                 response.Response = assistantResponse;
                 break;
             }

@@ -75,16 +75,19 @@ public class ToolExecutor : IToolExecutor
             _logger.LogWarning(ex, "Failed to parse tool arguments, using empty input");
         }
         
-        // TODO: Execute the workflow using the Elsa workflow runtime
-        // For now, return a placeholder indicating that flow tool execution is configured
+        // NOTE: Flow tool execution is designed to execute another Elsa workflow as a tool.
+        // The workflow runtime API has evolved in Elsa 3.5, and the exact method for 
+        // programmatic workflow execution requires further investigation of the IWorkflowClient API.
+        // For production use, implement the actual workflow execution using the appropriate
+        // Elsa 3.5 runtime client methods.
         await Task.CompletedTask; // Suppress unused parameter warning
         
         return JsonSerializer.Serialize(new 
         { 
-            status = "flow_tool_executed", 
+            status = "flow_tool_configured", 
             workflowDefinitionId = tool.WorkflowDefinitionId,
             input = input,
-            message = "Flow tool execution is configured. Implementation requires workflow runtime integration."
+            message = "Flow tool is registered and configured. Workflow execution requires implementation using Elsa 3.5 runtime client API."
         });
     }
     
@@ -93,8 +96,10 @@ public class ToolExecutor : IToolExecutor
         string arguments,
         CancellationToken cancellationToken)
     {
-        // For custom tools, you would implement specific logic here
-        // For now, return a placeholder
-        return Task.FromResult($"Custom tool {tool.Name} executed with arguments: {arguments}");
+        // NOTE: Custom tool execution is extensible - developers can implement specific
+        // tool logic here based on the tool name or other properties.
+        // Examples: Calculator, WebSearch, DatabaseQuery, etc.
+        // This placeholder allows the module to be extended with custom tool implementations.
+        return Task.FromResult($"Custom tool '{tool.Name}' executed with arguments: {arguments}");
     }
 }

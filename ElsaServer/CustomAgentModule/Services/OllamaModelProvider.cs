@@ -74,7 +74,7 @@ public class OllamaModelProvider : IModelProvider
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error calling Ollama");
-            return $"Error: {ex.Message}";
+            return "Error: Unable to complete the request. Please check your Ollama configuration.";
         }
     }
 }

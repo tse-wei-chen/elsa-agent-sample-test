@@ -78,7 +78,7 @@ public class OpenAIModelProvider : IModelProvider
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error calling model provider");
-            return $"Error: {ex.Message}";
+            return "Error: Unable to complete the request. Please check your API configuration.";
         }
     }
 }

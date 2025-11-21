@@ -9,6 +9,7 @@ using Elsa.Sql.PostgreSql;
 using Elsa.Sql.Sqlite;
 using Elsa.Sql.SqlServer;
 using Elsa.Tenants.Extensions;
+using ElsaServer.CustomAgentModule.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -41,6 +42,8 @@ services.AddElsa(elsa =>
     elsa.UseWorkflowsApi();
     elsa.AddActivitiesFrom<Program>();
     elsa.AddWorkflowsFrom<Program>();
+    // Custom Agent module configuration - must be before built-in agent modules
+    elsa.UseCustomAgents();
     // Agent module configuration
     elsa.UseAgents();
     elsa.UseAgentActivities();
